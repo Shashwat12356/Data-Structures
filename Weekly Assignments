@@ -1,0 +1,1403 @@
+1.	Write a C program to read a 2D array (with most of the elements as 0s) and then represent the same array as Sparse Metrics.
+Solution:
+#include <stdio.h>
+int main()
+{
+        int r,c,i,j;
+        printf("enter the number of rows and columns:");
+        scanf("%d %d", &r, &c);
+        int arr[r][c];
+        printf("enter the elements:\n");
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c;j++)
+                {
+                        scanf("%d", &arr[i][j]);
+                }
+        }
+
+        int nonzerocount=0;
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c;j++)
+                {
+                        if(arr[i][j]!=0)
+                                nonzerocount++;
+                }
+        }
+
+        int sparse[nonzerocount][3];
+        int k=0;
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c;j++)
+                {
+                        if(arr[i][j]!=0)
+                                sparse[k][0]=i;
+                                sparse[k][1]=j;
+                                sparse[k][2]=arr[i][j];
+                                k++;
+                }
+        }
+
+        printf("\nSparse matrix representation:\n");
+        printf("Row\tCol\tValue\n");
+        for(i=0;i<nonzerocount;i++)
+        {
+                printf("%d\t%d\t%d\n", sparse[i][0], sparse[i][1], sparse[i][2]);
+        }
+
+        return 0;
+}
+
+
+2.	Write a C program to pass an array to a function using Call by Value, update the array values in the function, and print the array elements both in the function and in the calling function.
+
+Solution:
+
+#include <stdio.h>
+
+void update(int a[], int s)
+{
+        printf("\nInside function- updated the array elements:\n");
+        for(int i=0;i<s;i++)
+        {
+                a[i]=a[i]+10;
+                printf("%d", a[i]);
+        }
+        printf("\n");
+}
+
+int main()
+{
+        int size;
+        printf("enter the number of elements:");
+        scanf("%d", &size);
+
+        int original[size];
+        int copy[size];
+
+        printf("enter the elements:\n");
+        for(int i=0;i<size;i++)
+        {
+                scanf("%d", &original[i]);
+                copy[i]=original[i];
+        }
+
+        update(copy, size);
+        printf("\nIn main function- original array elements:\n");
+        for(int i=0;i<size;i++)
+        {
+                printf("%d", original[i]);
+        }
+        printf("\n");
+
+        return 0;
+}
+
+
+3.	Write a C program to pass an array to a function using Call by Reference, update the array values in the function, and print the array elements both in the function and in the calling function.
+
+Solution:
+
+#include <stdio.h>
+
+void update(int arr[], int l)
+{
+        printf("\nInside function- updated array elements:\n");
+        for(int i=0;i<l;i++)
+        {
+                arr[i]=arr[i]+10;
+                printf("%d", arr[i]);
+        }
+
+        printf("\n");
+}
+
+int main()
+{
+        int s;
+        printf("enter the number of elements:");
+        scanf("%d", &s);
+        int a[s];
+        printf("enter the elements:\n");
+        for(int i=0;i<s;i++)
+        {
+                scanf("%d", &a[i]);
+        }
+
+        update(a, s);
+        printf("\nIn the main function- updated array elements:\n");
+        for(int i=0;i<s;i++)
+        {
+                printf("%d", a[i]);
+        }
+        printf("\n");
+
+        return 0;
+}
+
+
+4.	Write a program that reads two 2D metrics from the console, verifies if metrics multiplication is possible or not. Then multiplies the metrics and prints the 3rd metrics.
+
+Solution:
+
+#include <stdio.h>
+
+int main()
+{
+        int r,c,r1,c1,i,j,k;
+
+        printf("enter the number of rows and columns of the first matrix:");
+        scanf("%d %d", &r, &c);
+
+        printf("enter the number of rows and columns of the second matrix:");
+        scanf("%d %d", &r1, &c1);
+
+        if(c!=r1)
+        {
+                printf("matrix multiplication is not possible.\n");
+                return 1;
+        }
+        int m1[r][c], m2[r1][c1], result[r][c1];
+
+        printf("enter the elements of the first matrix:\n");
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c;j++)
+                {
+                        scanf("%d", &m1[i][j]);
+                }
+        }
+
+        printf("enter the elements of the second matrix:\n");
+        for(i=0;i<r1;i++)
+        {
+                for(j=0;j<c1;j++)
+                {
+                        scanf("%d", &m2[i][j]);
+                }
+        }
+
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c1;j++)
+                {
+                        result[i][j]=0;
+                }
+        }
+
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c1;j++)
+                {
+		  for(k=0;k<c;k++)
+                        {
+                                result[i][j] += m1[i][k] * m2[k][j];
+                        }
+                }
+        }
+
+        printf("matrix after multiplication:\n");
+        for(i=0;i<r;i++)
+        {
+                for(j=0;j<c1;j++)
+                {
+                        printf("%d", result[i][j]);
+                }
+
+                printf("\n");
+        }
+
+        return 0;
+}
+
+
+5.	Write a program that reads a 2D metrics and checks if the metrics is a symmetric metrics or not.
+
+Solution:
+
+#include <stdio.h>
+
+int main()
+{
+        int n,i,j;
+        int isSymmetric=1;
+
+        printf("enter the size of the matrix:");
+        scanf("%d", &n);
+
+        int m[n][n];
+
+        printf("enter the elements of the %dx%d matrix:\n", n, n);
+        for(i=0;i<n;i++)
+        {
+                for(j=0;j<n;j++)
+                {
+                        scanf("%d", &m[i][j]);
+                }
+        }
+
+        for(i=0;i<n;i++)
+        {
+                for(j=0;j<i;j++)
+                {
+                        if(m[i][j]!=m[j][i])
+                                isSymmetric=0;
+                                break;
+                }
+
+                if(!isSymmetric)
+                        break;
+        }
+
+        if(isSymmetric)
+                printf("The matrix is symmetric.\n");
+        else
+                printf("The matrix is not symmetric.\n");
+
+        return 0;
+}
+
+
+6.	Write a program to display n number of elements. Memory should be allocated dynamically using malloc ( ).
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+        int n,i;
+        printf("enter the number of elements:");
+        scanf("%d", &n);
+        int *arr= (int *)malloc(n * sizeof(int));
+        if(arr==NULL)
+        {
+                printf("memory not allocated.\n");
+                return 1;
+        }
+
+        printf("enter the elements:\n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("The elements are: \n");
+        for(i=0;i<n;i++)
+        {
+                printf("%d", arr[i]);
+        }
+
+        free(arr);
+        return 0;
+}
+
+
+7.	Write a program to display n number of elements. Memory should be allocated dynamically using calloc( ).
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+        int n,i;
+        printf("enter the number of elements: ");
+        scanf("%d", &n);
+
+        int *arr= (int *)calloc(n, sizeof(int));
+        if(arr==NULL)
+        {
+                printf("memory not allocated. \n");
+                return 1;
+        }
+
+        printf("enter the elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("The elements are: \n");
+        for(i=0;i<n;i++)
+        {
+                printf("%d", arr[i]);
+        }
+
+        free(arr);
+        return 0;
+}
+
+
+8.	Write a program to allocate memory using malloc ( ) and then reallocate the previously allocated memory using realloc( ). Display the elements which have been taken after reallocation.
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+        int n,i;
+        printf("enter the number of elements: ");
+        scanf("%d", &n);
+
+        int *arr= (int *)malloc(n * sizeof(int));
+        printf("enter the initial elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("enter the new size for reallocation: ");
+        scanf("%d", &n);
+        arr= realloc(arr, n * sizeof(int));
+
+        printf("enter the new elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("elements after reallocation: \n");
+        for(i=0;i<n;i++)
+        {
+                printf("%d", arr[i]);
+        }
+
+        free(arr);
+        return 0;
+}
+
+
+9.	Write a program to allocate memory using calloc( ) and then reallocate the previously allocated memory using realloc( ). Display the elements which have been taken after reallocation.
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+        int n,i;
+        printf("enter the number of elements: ");
+        scanf("%d", &n);
+
+        int *arr= (int *)calloc(n, sizeof(int));
+        printf("enter the initial elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("enter the new size for reallocation: ");
+        scanf("%d", &n);
+        arr= realloc(arr, n * sizeof(int));
+
+        printf("enter the new elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("elements after reallocation: \n");
+        for(i=0;i<n;i++)
+        {
+                printf("%d", arr[i]);
+        }
+
+        free(arr);
+        return 0;
+}
+
+
+10.	 Write a C program to search an element in an Array using dynamic memory allocation.
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+        int n,i,s,f=0;
+        printf("enter the number of elements: ");
+        scanf("%d", &n);
+
+        int *arr= (int *)malloc(n * sizeof(int));
+        if(arr==NULL)
+        {
+                printf("memory not allocated.\n");
+                return 1;
+        }
+
+        printf("enter the elements: \n");
+        for(i=0;i<n;i++)
+        {
+                scanf("%d", &arr[i]);
+        }
+
+        printf("enter an element to search: ");
+        scanf("%d", &s);
+        for(i=0;i<n;i++)
+        {
+                if(arr[i]==s)
+                {
+                        printf("element %d found at index %d. \n", s, i);
+                        f=1;
+                        break;
+                }
+        }
+
+        if(!f)
+        {
+                printf("element %d not found. \n", s);
+        }
+
+        free(arr);
+        return 0;
+}
+
+
+WEEK-3 ASSIGNMENT
+
+1. Write a Menu driven C program to accomplish the following functionalities in single linked list:
+a) Create a single linked list.
+b) Display the elements of a single linked list.
+c) Insert a node at the beginning of a single linked list.
+d) Insert a node at the end of a single linked list.
+e) Insert a node before a given node of a single linked list.
+f) Insert a node after a given node of a single linked list.
+g) Delete a node from the beginning of a single linked list.
+h) Delete a node from the end of a single linked list.
+i) Delete a node after a given node of a single linked list.
+j) Delete the entire single linked list.
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+        int data;
+        struct Node *next;
+};
+
+int main()
+{
+        struct Node *head=NULL, *temp, *newnode, *prev;
+        int choice,v,key;
+        do
+        {
+                printf("1. Create a singly linked list\n");
+                printf("2. Display singly linked list\n");
+                printf("3. Insert node at beginning\n");
+                printf("4. Insert node at the end\n");
+                printf("5. Insert node before a given node\n");
+                printf("6. Insert node after a given node\n");
+                printf("7. Delete node from beginning\n");
+                printf("8. Delete node from the end\n");
+                printf("9. Delete node after a given node\n");
+                printf("10. Delete the entire linked list\n");
+                printf("11. Exit\n");
+                printf("enter your choice: ");
+                scanf("%d", &choice);
+
+                switch(choice)
+                {
+                        case 1:
+                                printf("enter the value (-1 to stop): ");
+                                while(1)
+                                {
+                                        scanf("%d", &v);
+                                        if(v==-1)
+                                                break;
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        newnode->next=NULL;
+                                        if(head==NULL)
+                                        {
+                                                head=newnode;
+                                        }
+                                        else
+                                        {
+                                                temp=head;
+                                                while(temp->next!=NULL)
+				        		temp=temp->next;
+                                                temp->next=newnode;
+                                        }
+                                }
+                                break;
+                        case 2:
+                                if(head==NULL)
+                                {
+                                        printf("List is empty\n");
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        printf("Singly linked list: ");
+                                        while(temp!=NULL)
+                                        {
+                                                printf("%d", temp->data);
+                                                temp=temp->next;
+                                        }
+                                        printf("\n");
+                                }
+                                break;
+                        case 3:
+                                printf("enter the value to insert at beginning: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                newnode->next=head;
+                                head=newnode;
+                                break;
+                        case 4:
+                                printf("enter the value to insert at end: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                newnode->next=NULL;
+                                if(head==NULL)
+                                {
+                                        head=newnode;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next!=NULL)
+                                                temp=temp->next;
+                                        temp->next=newnode;
+                                }
+                                break;
+                        case 5:
+				printf("enter the value before which to insert: ");
+                                scanf("%d", &key);
+                                printf("enter the value to insert: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                if(head==NULL)
+                                {
+                                        printf("List is empty.\n");
+                                        free(newnode);
+                                }
+                                else if(head->data==key)
+                                {
+                                        newnode->next=head;
+                                        head=newnode;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next!=NULL && temp->next->data!=key)
+                                                temp=temp->next;
+                                        if(temp->next==NULL)
+                                        {
+                                                printf("Node with value %d not found\n", key);
+                                                free(newnode);
+                                        }
+                                        else
+                                        {
+                                                newnode->next=temp->next;
+                                                temp->next=newnode;
+                                        }
+                                }
+                                break;
+                        case 6:
+                                printf("enter the value after which to insert: ");
+                                scanf("%d", &key);
+                                printf("enter the value to insert: ");
+                                scanf("%d", &v);
+                                temp=head;
+                                while(temp!=NULL && temp->data!=key)
+                                        temp=temp->next;
+                                if(temp==NULL)
+                                {
+                                        printf("Node with value %d not found\n", key);
+                                }
+                                else
+                                {
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+				newnode->next=temp->next;
+                                        temp->next=newnode;
+                                }
+                                break;
+                        case 7:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        head=head->next;
+                                        free(temp);
+                                }
+                                break;
+                        case 8:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else if(head->next==NULL)
+                                {
+                                        free(head);
+                                        head=NULL;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next->next!=NULL)
+                                                temp=temp->next;
+                                        free(temp->next);
+                                        temp->next=NULL;
+                                }
+                                break;
+                        case 9:
+                                if(head==NULL)
+                                {
+                                        printf("Deletion not possible\n");
+                                }
+                                else
+                                {
+                                        printf("enter the value after which to delete: ");
+                                        scanf("%d", &key);
+                                        temp=head;
+                                        while(temp!=NULL && temp->data!=key)
+                                                temp=temp->next;
+                                        if(temp==NULL || temp->next==NULL)
+                                        {
+					printf("Node after value %d not found\n", key);
+                                        }
+                                        else
+                                        {
+                                                struct Node *delNode=temp->next;
+                                                temp->next=delNode->next;
+                                                free(delNode);
+                                        }
+                                }
+                                break;
+                        case 10:
+                                while(head!=NULL)
+                                {
+                                        temp=head;
+                                        head=head->next;
+                                        free(temp);
+                                }
+                                printf("entire list is deleted\n");
+                                break;
+                        case 11:
+                                printf("Exiting program\n");
+                                break;
+                        default:
+                                printf("Invalid choice, try again\n");
+                                break;
+                }
+        }
+        while(choice!=11);
+
+        return 0;
+}
+
+
+2. Write a Menu driven C program to accomplish the following functionalities in circular linked list.
+a) Create a circular linked list.
+b) Display the elements of a circular linked list.
+c) Insert a node at the beginning of a circular linked list.
+d) Insert a node at the end of a circular linked list.
+e) Delete a node from the beginning of a circular linked list.
+f) Delete a node from the end of a circular linked list.
+g) Delete a node after a given node of a circular linked list.
+h) Delete the entire circular linked list.
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node
+{
+        int data;
+        struct Node *next;
+};
+
+int main()
+{
+        struct Node *head= NULL, *temp, *newnode, *prev;
+        int choice,v,key;
+        do
+        {
+                printf("1. Create a circular linked list\n");
+                printf("2. Display circular linked list\n");
+                printf("3. Insert node at beginning\n");
+                printf("4. Insert node at end\n");
+                printf("5. Delete node from beginning\n");
+                printf("6. Delete node from end\n");
+                printf("7. Delete node after a given node\n");
+                printf("8. Delete the entire list\n");
+                printf("9. Exit\n");
+                printf("enter your choice: ");
+                scanf("%d", &choice);
+
+                switch(choice)
+                {
+                        case 1:
+                                printf("enter the value (-1 to stop): ");
+                                while(1)
+                                {
+                                        scanf("%d", &v);
+                                        if(v==-1)
+                                                break;
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        if(head==NULL)
+                                        {
+                                                head=newnode;
+                                                head->next=head;
+                                        }
+                                        else
+                                        {
+                                                temp=head;
+                                                while(temp->next!=head)
+                                                        temp=temp->next;
+	                                              temp->next=newnode;
+                                                newnode->next=head;
+                                        }
+                                }
+                                break;
+                        case 2:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty.\n");
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        printf("circular linked list: ");
+                                        do
+                                        {
+                                                printf("%d", temp->data);
+                                                temp=temp->next;
+                                        }
+                                        while(temp!=head);
+                                        printf("\n");
+                                }
+                                break;
+                        case 3:
+                                printf("enter the value to insert at beginning: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                if(head==NULL)
+                                {
+                                        head=newnode;
+                                        head->next=head;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next!=head)
+                                                temp=temp->next;
+                                        temp->next=newnode;
+                                        newnode->next=head;
+                                        head=newnode;
+                                }
+                                break;
+                        case 4:
+                                printf("enter the value to insert at end: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                if(head==NULL)
+			  {
+                                        head=newnode;
+                                        head->next=head;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next!=head)
+                                                temp=temp->next;
+                                        temp->next=head;
+                                }
+                                break;
+
+                        case 5:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty.\n");
+                                }
+                                else if(head->next==head)
+                                {
+                                        free(head);
+                                        head==NULL;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next!=head)
+                                                temp=temp->next;
+                                        temp->next=head->next;
+                                        free(head);
+                                        head=temp->next;
+                                }
+                                break;
+                        case 6:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty.\n");
+                                }
+                                else if(head->next==head)
+                                {
+                                        free(head);
+                                        head=NULL;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        while(temp->next->next!=head)
+                                                temp=temp->next;
+                                        free(temp->next);
+				temp->next=head;
+                                }
+                                break;
+                        case 7:
+                                if(head==NULL || head->next==head)
+                                {
+                                        printf("deletion not possible. \n");
+                                }
+                                else
+                                {
+                                        printf("enter the value of node after which to delete: ");
+                                        scanf("%d", &key);
+                                        temp=head;
+                                        do
+                                        {
+                                                if(temp->data==key)
+                                                {
+                                                        if(temp->next==head)
+                                                        {
+                                                                printf("no node exists after the given node. \n");
+                                                                break;
+                                                        }
+                                                        struct Node *delNode=temp->next;
+                                                        temp->next=delNode->next;
+                                                        free(delNode);
+                                                        break;
+                                                }
+                                                temp=temp->next;
+                                        }
+                                        while(temp!=head);
+                                }
+                                break;
+                        case 8:
+                                if(head==NULL)
+                                {
+                                        printf("list is empty.\n");
+                                }
+                                else
+                                {
+                                        temp=head->next;
+                                        while(temp!=head)
+                                        {
+                                                prev=temp;
+                                                temp=temp->next;
+                                                free(prev);
+                                        }
+                                        free(head);
+                                        head=NULL;
+                                                printf("entire list is deleted.\n");
+			}
+                              break;
+                        case 9:
+                                printf("exiting program.\n");
+                                break;
+                        default:
+                                printf("invalid choice, try again.\n");
+                                break;
+                }
+
+        }
+        while(choice!=9);
+        return 0;
+}
+
+
+WEEK-4 ASSIGNMENT
+
+1. Write a Menu driven C program to accomplish the following functionalities in doubly linked list.
+a) Create a doubly linked list.
+b) Display the elements of a doubly linked list.
+c) Insert a node at the beginning of a doubly linked list.
+d) Insert a node at the end of a doubly linked list.
+e) Insert a node before a given node of a doubly linked list.
+f) Insert a node after a given node of a doubly linked list.
+g) Delete a node from the beginning of a doubly linked list.
+h) Delete a node from the end of a doubly linked list.
+i) Delete a node after a given node of a doubly linked list.
+j) Delete the entire doubly linked list.
+
+Solution:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+        int data;
+        struct Node* prev;
+        struct Node* next;
+};
+
+int main()
+{
+        struct Node* head=NULL;
+        struct Node* tail=NULL;
+        int choice,v,key;
+        struct Node *newnode, *temp, *ptr;
+        while(1)
+        {
+                printf("1. Create a doubly linked list\n");
+                printf("2. Display the elements\n");
+                printf("3. Insert node at beginning\n");
+                printf("4. Insert node at end\n");
+                printf("5. Insert node before a given node\n");
+                printf("6. Insert node after a given node\n");
+                printf("7. Delete node from beginning\n");
+                printf("8. Delete node from end\n");
+                printf("9. Delete node after a given node\n");
+                printf("10 Delete the entire list\n");
+                printf("11. Exit\n");
+                printf("enter your choice: ");
+                scanf("%d", &choice);
+
+                switch(choice)
+                {
+                        case 1:
+                                printf("enter the elements (-1 to stop): ");
+                                while(1)
+                                {
+                                        scanf("%d", &v);
+                                        if(v==-1)
+                                                break;
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        newnode->next=NULL;
+                                        if(head==NULL)
+                                        {
+                                                head=newnode;
+                                                tail=newnode;
+                                                newnode->prev=NULL;
+				  }
+                                        else
+                                        {
+                                                tail->next=newnode;
+                                                newnode->prev=tail;
+                                                tail=newnode;
+                                        }
+                                }
+                                break;
+                        case 2:
+                                temp=head;
+                                if(!temp)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        printf("elements: ");
+                                        while(temp)
+                                        {
+                                                printf("%d", temp->data);
+                                                temp=temp->next;
+                                        }
+                                        printf("\n");
+                                }
+                                break;
+                        case 3:
+                                printf("enter the value to insert at beginning: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                newnode->prev=NULL;
+                                newnode->next=head;
+                                if(head)
+                                        head->prev=newnode;
+                                head=newnode;
+                                if(!tail)
+                                        tail=head;
+                                break;
+                        case 4:
+                                printf("enter the value to insert at end: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                newnode->next=NULL;
+                                if(tail)
+                                {
+                                        tail->next=newnode;
+                                        newnode->prev=tail;
+		             tail=newnode;
+                                }
+                                else
+                                {
+                                        head=tail=newnode;
+                                        newnode->prev=NULL;
+                                }
+                                break;
+                        case 5:
+                                printf("enter the value to insert and key before which to insert: ");
+                                scanf("%d %d", &v, &key);
+                                temp=head;
+                                while(temp && temp->data!=key)
+                                        temp=temp->next;
+                                if(!temp)
+                                {
+                                        printf("key not found\n");
+                                }
+                                else
+                                {
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        newnode->prev=temp->prev;
+                                        newnode->next=temp;
+                                        if(temp->prev)
+                                                temp->prev->next=newnode;
+                                        else
+                                                head=newnode;
+                                        temp->prev=newnode;
+                                }
+                                break;
+                        case 6:
+                                printf("enter the value to insert and key after which to insert: ");
+                                scanf("%d %d", &v, &key);
+                                temp=head;
+                                while(temp && temp->data!=key)
+                                        temp=temp->next;
+                                if(!temp)
+                                {
+                                        printf("key not found\n");
+                                }
+                                else
+                                {
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        newnode->next=temp->next;
+                                        newnode->prev=temp;
+                                        if(temp->next)
+                                                temp->next->prev=newnode;
+				else
+                                                tail=newnode;
+                                        temp->next=newnode;
+                                }
+                                break;
+                        case 7:
+                                if(!head)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        head=head->next;
+                                        if(head)
+                                                head->prev=NULL;
+                                        else
+                                                tail=NULL;
+                                        free(temp);
+                                }
+                                break;
+                        case 8:
+                                if(!tail)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        temp=tail;
+                                        tail=tail->prev;
+                                        if(tail)
+                                                tail->next=NULL;
+                                        else
+                                                head=NULL;
+                                        free(temp);
+                                }
+                                break;
+                        case 9:
+                                printf("enter key after which to delete: ");
+                                scanf("%d", &key);
+                                temp=head;
+                                while(temp && temp->data!=key)
+                                        temp=temp->next;
+                                if(!temp || temp->next)
+                                {
+                                        printf("key not found or no node after given key\n");
+                                }
+                                else
+                                {
+				ptr=temp->next;
+                                        temp->next=ptr->next;
+                                        if(ptr->next)
+                                                ptr->next->prev=temp;
+                                        else tail=temp;
+                                        free(ptr);
+                                }
+                                break;
+                        case 10:
+                                while(head)
+                                {
+                                        temp=head;
+                                        head=head->next;
+                                        free(temp);
+                                }
+                                tail=NULL;
+                                printf("List is deleted\n");
+                                break;
+                        case 11:
+                                printf("exiting program\n");
+                                exit(0);
+                        default:
+                                printf("Invalid choice, try again\n");
+                }
+        }
+        return 0;
+}
+
+
+2. Write a Menu driven C program to accomplish the following functionalities in circular doubly linked list.
+a) Create a circular doubly linked list.
+b) Display the elements of a circular doubly linked list.
+c) Insert a node at the beginning of a circular doubly linked list.
+d) Insert a node at the end of a circular doubly linked list.
+e) Delete a node from the beginning of a circular doubly linked list.
+f) Delete a node from the end of a circular doubly linked list.
+g) Delete a node after a given node of a circular doubly linked list.
+h) Delete the entire circular doubly linked list.
+
+Solution:
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+        int data;
+        struct Node* prev;
+        struct Node* next;
+};
+
+int main()
+{
+        struct Node* head=NULL;
+        struct Node* tail=NULL;
+        int choice,v,key;
+        struct Node *newnode, *temp, *ptr;
+        while(1)
+        {
+                printf("1. Create a circular doubly linked list\n");
+                printf("2. Display the elements\n");
+                printf("3. Insert node at beginning\n");
+                printf("4. Insert node at end\n");
+                printf("5. Delete node from beginning\n");
+                printf("6. Delete node from end\n");
+                printf("7. Delete node after a given node\n");
+                printf("8. Delete the entire list\n");
+                printf("9. Exit\n");
+                printf("enter your choice: ");
+                scanf("%d", &choice);
+                switch(choice)
+                {
+                        case 1:
+                                printf("enter the elements (-1 to stop): ");
+                                while(1)
+                                {
+                                        scanf("%d", &v);
+                                        if(v==-1)
+                                                break;
+                                        newnode= (struct Node *)malloc(sizeof(struct Node));
+                                        newnode->data=v;
+                                        if(head==NULL)
+                                        {
+                                                head=newnode;
+                                                tail=newnode;
+                                                newnode->prev=newnode;
+                                                newnode->next=newnode;
+                                        }
+                                        else
+                                        {
+					newnode->next=head;
+                                                newnode->prev=tail;
+                                                tail->next=newnode;
+                                                head->prev=newnode;
+                                        }
+                                }
+                                break;
+                        case 2:
+                                if(!head)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        printf("elements: ");
+                                        temp=head;
+                                        do
+                                        {
+                                                printf("%d", temp->data);
+                                                temp=temp->next;
+                                        }
+                                        while(temp!=head);
+                                        printf("\n");
+                                }
+                                break;
+                        case 3:
+                                printf("enter the value to insert at beginning: ");
+                                scanf("%d", &v);
+                                newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                if(head==NULL)
+                                {
+                                        head=newnode;
+                                        tail=newnode;
+                                        newnode->prev=newnode;
+                                        newnode->next=newnode;
+                                }
+                                else
+                                {
+                                        newnode->next=head;
+                                        newnode->prev=tail;
+                                        head->prev=newnode;
+                                        tail->next=newnode;
+                                        head=newnode;
+                                }
+                                break;
+                        case 4:
+                                printf("enter the value to insert at end: ");
+                                scanf("%d", &v);
+			  newnode= (struct Node *)malloc(sizeof(struct Node));
+                                newnode->data=v;
+                                if(tail==NULL)
+                                {
+                                        head=newnode;
+                                        tail=newnode;
+                                        newnode->prev=newnode;
+                                        newnode->next=newnode;
+                                }
+                                else
+                                {
+                                        newnode->next=head;
+                                        newnode->prev=tail;
+                                        tail->next=newnode;
+                                        head->prev=newnode;
+                                        tail=newnode;
+                                }
+                                break;
+                        case 5:
+                                if(!head)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else if(head==tail)
+                                {
+                                        free(head);
+                                        head=tail=NULL;
+                                }
+                                else
+                                {
+                                        temp=head;
+                                        head=head->next;
+                                        tail->next=head;
+                                        head->prev=tail;
+                                        free(temp);
+                                }
+                                break;
+                        case 6:
+                                if(!tail)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else if(head==tail)
+                                {
+                                        free(tail);
+                                        head=tail=NULL;
+                                }
+                                else
+                                {
+				temp=tail;
+                                        tail=tail->prev;
+                                        tail->next=head;
+                                        head->prev=tail;
+                                        free(temp);
+                                }
+                                break;
+                        case 7:
+                                if(!head)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+                                {
+                                        printf("enter the key after which to delete: ");
+                                        scanf("%d", &key);
+                                        temp=head;
+                                        do
+                                        {
+                                                if(temp->data==key)
+                                                {
+                                                        if(temp->next==head)
+                                                        {
+                                                                printf("no node after the given key\n");
+                                                        }
+                                                        else
+                                                        {
+                                                                ptr=temp->next;
+                                                                temp->next=ptr->next;
+                                                                ptr->next->prev=temp;
+                                                                if(ptr==tail)
+                                                                        tail=temp;
+                                                                free(ptr);
+                                                        }
+                                                        break;
+                                                }
+                                                temp=temp->next;
+                                        }
+                                        while(temp!=head);
+                                        if(temp==head)
+                                                printf("key not found\n");
+                                }
+                                break;
+                        case 8:
+                                if(!head)
+                                {
+                                        printf("list is empty\n");
+                                }
+                                else
+			  {
+                                        while(head!=tail)
+                                        {
+                                                temp=head;
+                                                head=head->next;
+                                                free(temp);
+                                        }
+                                        free(head);
+                                        head=tail=NULL;
+                                        printf("list is deleted\n");
+                                }
+                                break;
+                        case 9:
+                                printf("exiting program\n");
+                                exit(0);
+                        default:
+                                printf("invalid choice, try again\n");
+                }
+        }
+        return 0;
+}
